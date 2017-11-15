@@ -1,17 +1,27 @@
 package suzuri
 
 import (
-	"log"
 	"net/http"
 	"net/url"
 )
 
+const baseURL = "https://suzuri.jp"
+
 // Client is a SUZURI client for making SUZURI API requests.
 type Client struct {
-	URL        *url.URL
-	HTTPClient *http.Client
+	url        *url.URL
+	httpClient *http.Client
 
-	Token string
+	token string
+}
 
-	Logger *log.Logger
+// NewClient returns a new Client.
+func NewClient(token string) *Client {
+	parsedURL, _ := url.ParseRequestURI(baseURL)
+
+	return &Client{
+		url:        parsedURL,
+		httpClient: http.DefaultClient,
+		token:      token,
+	}
 }
