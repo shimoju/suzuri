@@ -3,5 +3,9 @@ go:
   - 1.8
   - 1.9
 
+branches:
+  only:
+    - master
+
 notifications:
   email: false
