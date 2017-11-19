@@ -10,7 +10,7 @@ func TestNewClient(t *testing.T) {
 	}
 
 	baseURL := "https://suzuri.jp"
-	if client.url.String() != baseURL {
-		t.Errorf("expected %v, got %v", baseURL, client.url)
+	if client.baseURL.String() != baseURL {
+		t.Errorf("expected %v, got %v", baseURL, client.baseURL)
 	}
 }
