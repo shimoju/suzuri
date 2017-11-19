@@ -1,11 +1,15 @@
 package suzuri
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
+	"runtime"
 )
 
 const baseURL = "https://suzuri.jp"
+
+var userAgent = fmt.Sprintf("SuzuriGo/%s (%s)", version, runtime.Version())
 
 // Client is a SUZURI client for making SUZURI API requests.
 type Client struct {
