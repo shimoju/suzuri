@@ -1,9 +1,12 @@
 package suzuri
 
 import (
+	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
+	"path"
 	"runtime"
 )
 
@@ -28,4 +31,22 @@ func NewClient(token string) *Client {
 		httpClient: http.DefaultClient,
 		token:      token,
 	}
+}
+
+func (c *Client) newRequest(ctx context.Context, method, endpoint string, body io.Reader) (*http.Request, error) {
+	u := *c.baseURL
+	u.Path = path.Join(c.baseURL.Path, endpoint)
+
+	req, err := http.NewRequest(method, u.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req = req.WithContext(ctx)
+
+	req.Header.Set("Authorization", "Bearer "+c.token)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", userAgent)
+
+	return req, nil
 }
