@@ -1,15 +1,22 @@
 package suzuri
 
 import (
+	"context"
+	"fmt"
+	"io"
 	"net/http"
 	"net/url"
+	"path"
+	"runtime"
 )
 
-const baseURL = "https://suzuri.jp"
+const suzuriURL = "https://suzuri.jp"
+
+var userAgent = fmt.Sprintf("SuzuriGo/%s (%s)", version, runtime.Version())
 
 // Client is a SUZURI client for making SUZURI API requests.
 type Client struct {
-	url        *url.URL
+	baseURL    *url.URL
 	httpClient *http.Client
 
 	token string
@@ -17,11 +24,29 @@ type Client struct {
 
 // NewClient returns a new Client.
 func NewClient(token string) *Client {
-	parsedURL, _ := url.ParseRequestURI(baseURL)
+	baseURL, _ := url.ParseRequestURI(suzuriURL)
 
 	return &Client{
-		url:        parsedURL,
+		baseURL:    baseURL,
 		httpClient: http.DefaultClient,
 		token:      token,
 	}
+}
+
+func (c *Client) newRequest(ctx context.Context, method, endpoint string, body io.Reader) (*http.Request, error) {
+	u := *c.baseURL
+	u.Path = path.Join(c.baseURL.Path, endpoint)
+
+	req, err := http.NewRequest(method, u.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req = req.WithContext(ctx)
+
+	req.Header.Set("Authorization", "Bearer "+c.token)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", userAgent)
+
+	return req, nil
 }
