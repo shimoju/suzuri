@@ -56,4 +56,9 @@ func TestNewRequest(t *testing.T) {
 	if !strings.HasPrefix(actual, expected) {
 		t.Errorf("User-Agent should start with %v, got %v", expected, actual)
 	}
+
+	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil)
+	if err == nil {
+		t.Errorf("should return error, got %v", err)
+	}
 }
