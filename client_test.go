@@ -23,10 +23,20 @@ func TestNewRequest(t *testing.T) {
 	client := NewClient("accesstoken")
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+	baseURL := client.baseURL.String()
+	endpoint := "/api/v1/user"
+	fullURL := baseURL + endpoint
 
-	req, err := client.newRequest(ctx, "GET", "/api/v1/user", nil)
+	req, err := client.newRequest(ctx, "GET", endpoint, nil)
 	if err != nil {
 		t.Fatalf("failed to make a new request: %v", err)
+	}
+
+	if req.URL.String() != fullURL {
+		t.Errorf("expected %v, got %v", fullURL, req.URL.String())
+	}
+	if client.baseURL.String() != baseURL {
+		t.Errorf("baseURL should not change from %v, got %v", baseURL, client.baseURL.String())
 	}
 
 	expected := "Bearer accesstoken"
