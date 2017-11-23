@@ -33,6 +33,17 @@ func NewClient(token string) *Client {
 	}
 }
 
+// SetBaseURL changes the base URL for API requests.
+func (c *Client) SetBaseURL(urlStr string) error {
+	baseURL, err := url.ParseRequestURI(urlStr)
+	if err != nil {
+		return err
+	}
+	c.baseURL = baseURL
+
+	return nil
+}
+
 func (c *Client) newRequest(ctx context.Context, method, endpoint string, body io.Reader) (*http.Request, error) {
 	reqURL := *c.baseURL
 	reqURL.Path = path.Join(c.baseURL.Path, endpoint)
