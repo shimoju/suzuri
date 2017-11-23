@@ -19,6 +19,25 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
+func TestSetBaseURL(t *testing.T) {
+	client := NewClient("accesstoken")
+	newURL := "http://localhost:8080/api"
+
+	err := client.SetBaseURL(newURL)
+	if err != nil {
+		t.Fatalf("failed to set base url: %v", err)
+	}
+
+	if client.baseURL.String() != newURL {
+		t.Errorf("expected %v, got %v", newURL, client.baseURL)
+	}
+
+	err = client.SetBaseURL("http://invalid url")
+	if err == nil {
+		t.Errorf("should return error, got %v", err)
+	}
+}
+
 func TestNewRequest(t *testing.T) {
 	client := NewClient("accesstoken")
 	ctx := context.Background()
