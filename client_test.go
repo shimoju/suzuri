@@ -13,7 +13,7 @@ func TestNewClient(t *testing.T) {
 		t.Errorf("expected %v, got %v", token, client.token)
 	}
 
-	baseURL := "https://suzuri.jp"
+	baseURL := "https://suzuri.jp/api/v1"
 	if client.baseURL.String() != baseURL {
 		t.Errorf("expected %v, got %v", baseURL, client.baseURL)
 	}
@@ -23,7 +23,7 @@ func TestNewRequest(t *testing.T) {
 	client := NewClient("accesstoken")
 	ctx := context.Background()
 	baseURL := client.baseURL.String()
-	endpoint := "/api/v1/user"
+	endpoint := "/user"
 	fullURL := baseURL + endpoint
 
 	req, err := client.newRequest(ctx, "GET", endpoint, nil)

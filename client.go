@@ -10,7 +10,7 @@ import (
 	"runtime"
 )
 
-const suzuriURL = "https://suzuri.jp"
+const suzuriAPI = "https://suzuri.jp/api/v1"
 
 var userAgent = fmt.Sprintf("SuzuriGo/%s (%s)", version, runtime.Version())
 
@@ -24,7 +24,7 @@ type Client struct {
 
 // NewClient returns a new Client.
 func NewClient(token string) *Client {
-	baseURL, _ := url.ParseRequestURI(suzuriURL)
+	baseURL, _ := url.ParseRequestURI(suzuriAPI)
 
 	return &Client{
 		baseURL:    baseURL,
