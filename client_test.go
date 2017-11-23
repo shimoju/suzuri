@@ -21,8 +21,7 @@ func TestNewClient(t *testing.T) {
 
 func TestNewRequest(t *testing.T) {
 	client := NewClient("accesstoken")
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := context.Background()
 	baseURL := client.baseURL.String()
 	endpoint := "/api/v1/user"
 	fullURL := baseURL + endpoint
