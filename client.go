@@ -34,10 +34,10 @@ func NewClient(token string) *Client {
 }
 
 func (c *Client) newRequest(ctx context.Context, method, endpoint string, body io.Reader) (*http.Request, error) {
-	u := *c.baseURL
-	u.Path = path.Join(c.baseURL.Path, endpoint)
+	reqURL := *c.baseURL
+	reqURL.Path = path.Join(c.baseURL.Path, endpoint)
 
-	req, err := http.NewRequest(method, u.String(), body)
+	req, err := http.NewRequest(method, reqURL.String(), body)
 	if err != nil {
 		return nil, err
 	}
