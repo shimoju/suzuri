@@ -2,6 +2,7 @@ package suzuri
 
 import (
 	"context"
+	"net/url"
 	"strings"
 	"testing"
 )
@@ -46,10 +47,12 @@ func TestNewRequest(t *testing.T) {
 	client := NewClient("accesstoken")
 	ctx := context.Background()
 	baseURL := client.baseURL.String()
-	endpoint := "/user"
-	fullURL := baseURL + endpoint
+	endpoint := "/users"
+	query := url.Values{}
+	query.Set("name", "surisurikun")
+	fullURL := baseURL + endpoint + "?" + query.Encode()
 
-	req, err := client.newRequest(ctx, "GET", endpoint, nil)
+	req, err := client.newRequest(ctx, "GET", endpoint, query, nil)
 	if err != nil {
 		t.Fatalf("failed to make a new request: %v", err)
 	}
@@ -79,7 +82,13 @@ func TestNewRequest(t *testing.T) {
 		t.Errorf("User-Agent should start with %v, got %v", expected, actual)
 	}
 
-	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil)
+	body := strings.NewReader(`{"text": "TEST"}`)
+	req, err = client.newRequest(ctx, "POST", "/materials/text", nil, body)
+	if err != nil {
+		t.Fatalf("failed to make a new request: %v", err)
+	}
+
+	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil, nil)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}

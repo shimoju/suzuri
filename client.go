@@ -44,9 +44,10 @@ func (c *Client) SetBaseURL(urlStr string) error {
 	return nil
 }
 
-func (c *Client) newRequest(ctx context.Context, method, endpoint string, body io.Reader) (*http.Request, error) {
+func (c *Client) newRequest(ctx context.Context, method, endpoint string, query url.Values, body io.Reader) (*http.Request, error) {
 	reqURL := *c.baseURL
 	reqURL.Path = path.Join(c.baseURL.Path, endpoint)
+	reqURL.RawQuery = query.Encode()
 
 	req, err := http.NewRequest(method, reqURL.String(), body)
 	if err != nil {
