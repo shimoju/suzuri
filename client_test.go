@@ -49,7 +49,7 @@ func TestNewRequest(t *testing.T) {
 	endpoint := "/user"
 	fullURL := baseURL + endpoint
 
-	req, err := client.newRequest(ctx, "GET", endpoint, nil)
+	req, err := client.newRequest(ctx, "GET", endpoint, nil, nil)
 	if err != nil {
 		t.Fatalf("failed to make a new request: %v", err)
 	}
@@ -79,7 +79,7 @@ func TestNewRequest(t *testing.T) {
 		t.Errorf("User-Agent should start with %v, got %v", expected, actual)
 	}
 
-	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil)
+	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil, nil)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
