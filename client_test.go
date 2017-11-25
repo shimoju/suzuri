@@ -82,6 +82,12 @@ func TestNewRequest(t *testing.T) {
 		t.Errorf("User-Agent should start with %v, got %v", expected, actual)
 	}
 
+	body := strings.NewReader(`{"text": "TEST"}`)
+	req, err = client.newRequest(ctx, "POST", "/materials/text", nil, body)
+	if err != nil {
+		t.Fatalf("failed to make a new request: %v", err)
+	}
+
 	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil, nil)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
