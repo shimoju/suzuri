@@ -48,11 +48,11 @@ func TestNewRequest(t *testing.T) {
 	ctx := context.Background()
 	baseURL := client.baseURL.String()
 	endpoint := "/users"
-	values := url.Values{}
-	values.Set("name", "surisurikun")
-	fullURL := baseURL + endpoint + "?" + values.Encode()
+	query := url.Values{}
+	query.Set("name", "surisurikun")
+	fullURL := baseURL + endpoint + "?" + query.Encode()
 
-	req, err := client.newRequest(ctx, "GET", endpoint, values, nil)
+	req, err := client.newRequest(ctx, "GET", endpoint, query, nil)
 	if err != nil {
 		t.Fatalf("failed to make a new request: %v", err)
 	}
