@@ -2,6 +2,7 @@ package suzuri
 
 import (
 	"context"
+	"net/url"
 	"strings"
 	"testing"
 )
@@ -46,10 +47,12 @@ func TestNewRequest(t *testing.T) {
 	client := NewClient("accesstoken")
 	ctx := context.Background()
 	baseURL := client.baseURL.String()
-	endpoint := "/user"
-	fullURL := baseURL + endpoint
+	endpoint := "/users"
+	values := url.Values{}
+	values.Set("name", "surisurikun")
+	fullURL := baseURL + endpoint + "?" + values.Encode()
 
-	req, err := client.newRequest(ctx, "GET", endpoint, nil, nil)
+	req, err := client.newRequest(ctx, "GET", endpoint, values, nil)
 	if err != nil {
 		t.Fatalf("failed to make a new request: %v", err)
 	}
