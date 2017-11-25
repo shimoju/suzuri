@@ -36,6 +36,10 @@ func TestSetBaseURL(t *testing.T) {
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
+
+	if client.baseURL.String() != newURL {
+		t.Errorf("expected %v, got %v", newURL, client.baseURL)
+	}
 }
 
 func TestNewRequest(t *testing.T) {
