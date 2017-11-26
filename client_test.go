@@ -2,6 +2,7 @@ package suzuri
 
 import (
 	"context"
+	"net/http"
 	"net/url"
 	"strings"
 	"testing"
@@ -89,6 +90,48 @@ func TestNewRequest(t *testing.T) {
 	}
 
 	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil, nil)
+	if err == nil {
+		t.Errorf("should return error, got %v", err)
+	}
+}
+
+func TestGet(t *testing.T) {
+	setup()
+	defer teardown()
+
+	endpoint := "/users/7"
+	query := url.Values{}
+	query.Set("name", "surisurikun")
+	stub.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
+		expected := "GET"
+		actual := r.Method
+		if actual != expected {
+			t.Errorf("expected %v, got %v", expected, actual)
+		}
+
+		expected = query.Encode()
+		actual = r.URL.RawQuery
+		if actual != expected {
+			t.Errorf("expected %v, got %v", expected, actual)
+		}
+
+		http.ServeFile(w, r, "testdata/users-7.json")
+	})
+
+	res, err := client.get(ctx, endpoint, query)
+	if err != nil {
+		t.Fatalf("failed to GET request: %v", err)
+	}
+
+	expected := http.StatusOK
+	actual := res.StatusCode
+	if actual != expected {
+		t.Errorf("expected %v, got %v", expected, actual)
+	}
+
+	cancelCtx, cancel := context.WithCancel(ctx)
+	cancel()
+	res, err = client.get(cancelCtx, endpoint, nil)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
