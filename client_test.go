@@ -119,4 +119,11 @@ func TestGet(t *testing.T) {
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
+
+	cancelCtx, cancel := context.WithCancel(ctx)
+	cancel()
+	res, err = client.get(cancelCtx, endpoint, nil)
+	if err == nil {
+		t.Errorf("should return error, got %v", err)
+	}
 }
