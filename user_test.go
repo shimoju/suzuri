@@ -35,6 +35,18 @@ func TestGetUser(t *testing.T) {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
+	expected = 2
+	actual = len(user.Identities)
+	if actual != expected {
+		t.Errorf("expected %v, got %v", expected, actual)
+	}
+
+	expected = 10
+	actual = user.Profile.ID
+	if actual != expected {
+		t.Errorf("expected %v, got %v", expected, actual)
+	}
+
 	cancelCtx, cancel := context.WithCancel(ctx)
 	cancel()
 	user, err = client.GetUser(cancelCtx, userID)
