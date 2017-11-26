@@ -2,6 +2,10 @@ package suzuri
 
 import "context"
 
+type UserRoot struct {
+	User User `json:"user"`
+}
+
 // User is a SUZURI user account.
 type User struct {
 	ID          int    `json:"id"`
@@ -25,7 +29,17 @@ type User struct {
 
 // GetUser gets details about an existing user.
 func (c *Client) GetUser(ctx context.Context, userID string) (*User, error) {
-	user := &User{ID: 1}
+	endpoint := "/users/" + userID
+	resp, err := c.get(ctx, endpoint, nil)
+	if err != nil {
+		return nil, err
+	}
 
-	return user, nil
+	// TODO: status chack and error handling
+	var user UserRoot
+	if err := decodeJSON(resp, &user); err != nil {
+		return nil, err
+	}
+
+	return &user.User, nil
 }
