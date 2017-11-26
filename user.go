@@ -2,6 +2,7 @@ package suzuri
 
 import "context"
 
+// UserRoot is the root element that wraps a User.
 type UserRoot struct {
 	User User `json:"user"`
 }
