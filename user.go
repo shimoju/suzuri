@@ -1,6 +1,9 @@
 package suzuri
 
-import "context"
+import (
+	"context"
+	"strconv"
+)
 
 // UserRoot is the root element that wraps a User.
 type UserRoot struct {
@@ -35,8 +38,8 @@ type Profile struct {
 }
 
 // GetUser gets details about an existing user.
-func (c *Client) GetUser(ctx context.Context, userID string) (*User, error) {
-	endpoint := "/users/" + userID
+func (c *Client) GetUser(ctx context.Context, userID int) (*User, error) {
+	endpoint := "/users/" + strconv.Itoa(userID)
 	resp, err := c.get(ctx, endpoint, nil)
 	if err != nil {
 		return nil, err

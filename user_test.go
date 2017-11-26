@@ -12,9 +12,9 @@ func TestGetUser(t *testing.T) {
 	defer teardown()
 
 	userID := 7
-	userIDStr := strconv.Itoa(userID)
+	endpoint := "/users/" + strconv.Itoa(userID)
 
-	stub.HandleFunc("/users/"+userIDStr, func(w http.ResponseWriter, r *http.Request) {
+	stub.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		expected := "GET"
 		actual := r.Method
 		if actual != expected {
@@ -24,7 +24,7 @@ func TestGetUser(t *testing.T) {
 		http.ServeFile(w, r, "testdata/users-7.json")
 	})
 
-	user, err := client.GetUser(ctx, userIDStr)
+	user, err := client.GetUser(ctx, userID)
 	if err != nil {
 		t.Fatalf("failed to get user: %v", err)
 	}
@@ -37,7 +37,7 @@ func TestGetUser(t *testing.T) {
 
 	cancelCtx, cancel := context.WithCancel(ctx)
 	cancel()
-	user, err = client.GetUser(cancelCtx, userIDStr)
+	user, err = client.GetUser(cancelCtx, userID)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
