@@ -66,10 +66,10 @@ func (c *Client) newRequest(ctx context.Context, method, endpoint string, query 
 func (c *Client) get(ctx context.Context, endpoint string, params url.Values) (*http.Response, error) {
 	req, _ := c.newRequest(ctx, "GET", endpoint, params, nil)
 
-	res, err := c.httpClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
 
-	return res, nil
+	return resp, nil
 }

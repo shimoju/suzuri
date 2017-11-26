@@ -118,20 +118,20 @@ func TestGet(t *testing.T) {
 		http.ServeFile(w, r, "testdata/users-7.json")
 	})
 
-	res, err := client.get(ctx, endpoint, query)
+	resp, err := client.get(ctx, endpoint, query)
 	if err != nil {
 		t.Fatalf("failed to GET request: %v", err)
 	}
 
 	expected := http.StatusOK
-	actual := res.StatusCode
+	actual := resp.StatusCode
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
 	cancelCtx, cancel := context.WithCancel(ctx)
 	cancel()
-	res, err = client.get(cancelCtx, endpoint, nil)
+	resp, err = client.get(cancelCtx, endpoint, nil)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
