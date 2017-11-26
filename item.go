@@ -48,6 +48,7 @@ func (c *Client) GetItems(ctx context.Context) ([]Item, error) {
 		return nil, err
 	}
 
+	// TODO: status chack and error handling
 	var items Items
 	if err := decodeJSON(resp, &items); err != nil {
 		return nil, err
