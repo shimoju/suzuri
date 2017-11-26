@@ -44,6 +44,17 @@ func (c *Client) SetBaseURL(urlStr string) error {
 	return nil
 }
 
+func (c *Client) get(ctx context.Context, endpoint string, params url.Values) (*http.Response, error) {
+	req, _ := c.newRequest(ctx, "GET", endpoint, params, nil)
+
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
 func (c *Client) newRequest(ctx context.Context, method, endpoint string, query url.Values, body io.Reader) (*http.Request, error) {
 	reqURL := *c.baseURL
 	reqURL.Path = path.Join(c.baseURL.Path, endpoint)
@@ -61,15 +72,4 @@ func (c *Client) newRequest(ctx context.Context, method, endpoint string, query 
 	req.Header.Set("User-Agent", userAgent)
 
 	return req, nil
-}
-
-func (c *Client) get(ctx context.Context, endpoint string, params url.Values) (*http.Response, error) {
-	req, _ := c.newRequest(ctx, "GET", endpoint, params, nil)
-
-	resp, err := c.httpClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
 }
