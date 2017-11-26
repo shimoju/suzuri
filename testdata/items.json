@@ -1,0 +1,183 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "t-shirt",
+      "angles": [],
+      "humanizeName": "Tシャツ",
+      "variants": [
+        {
+          "id": 1,
+          "price": 2080,
+          "exemplary": true,
+          "enabled": true,
+          "color": {
+            "id": 1,
+            "name": "white",
+            "rgb": "#ffffff"
+          },
+          "size": {
+            "id": 1,
+            "name": "s"
+          }
+        },
+        {
+          "id": 103,
+          "price": 2750,
+          "exemplary": false,
+          "enabled": true,
+          "color": {
+            "id": 2,
+            "name": "black",
+            "rgb": "#000000"
+          },
+          "size": {
+            "id": 7,
+            "name": "xxxl"
+          }
+        },
+        {
+          "id": 752,
+          "price": 2080,
+          "exemplary": false,
+          "enabled": true,
+          "color": {
+            "id": 50,
+            "name": "oatmeal",
+            "rgb": "#dcdcda"
+          },
+          "size": {
+            "id": 40,
+            "name": "gm"
+          }
+        },
+        {
+          "id": 431,
+          "price": 2750,
+          "exemplary": false,
+          "enabled": true,
+          "color": {
+            "id": 4,
+            "name": "red",
+            "rgb": "#d71920"
+          },
+          "size": {
+            "id": 46,
+            "name": "150"
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "wallet-phone-case",
+      "angles": [
+        "front",
+        "back",
+        "outside",
+        "inside"
+      ],
+      "humanizeName": "ウォレットフォンケース",
+      "variants": [
+        {
+          "id": 607,
+          "price": 2140,
+          "exemplary": false,
+          "enabled": true,
+          "color": {
+            "id": 1,
+            "name": "white",
+            "rgb": "#ffffff"
+          },
+          "size": {
+            "id": 2,
+            "name": "m"
+          }
+        },
+        {
+          "id": 622,
+          "price": 2140,
+          "exemplary": true,
+          "enabled": true,
+          "color": {
+            "id": 1,
+            "name": "white",
+            "rgb": "#ffffff"
+          },
+          "size": {
+            "id": 3,
+            "name": "l"
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "sticker",
+      "angles": [
+        "helmet",
+        "thermos",
+        "car",
+        "mailbox",
+        "storage",
+        "drawer"
+      ],
+      "humanizeName": "ステッカー",
+      "variants": [
+        {
+          "id": 606,
+          "price": 386,
+          "exemplary": true,
+          "enabled": true,
+          "color": {
+            "id": 1,
+            "name": "white",
+            "rgb": "#ffffff"
+          },
+          "size": {
+            "id": 2,
+            "name": "m"
+          }
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "sacoche",
+      "angles": [],
+      "humanizeName": "サコッシュ",
+      "variants": [
+        {
+          "id": 843,
+          "price": 1780,
+          "exemplary": false,
+          "enabled": true,
+          "color": {
+            "id": 2,
+            "name": "black",
+            "rgb": "#000000"
+          },
+          "size": {
+            "id": 2,
+            "name": "m"
+          }
+        },
+        {
+          "id": 842,
+          "price": 1780,
+          "exemplary": true,
+          "enabled": true,
+          "color": {
+            "id": 11,
+            "name": "natural",
+            "rgb": "#f1d6b5"
+          },
+          "size": {
+            "id": 2,
+            "name": "m"
+          }
+        }
+      ]
+    }
+  ]
+}
