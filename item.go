@@ -4,10 +4,12 @@ import (
 	"context"
 )
 
+// Items is a collection of Item.
 type Items struct {
 	Items []Item `json:"items"`
 }
 
+// Item is a product type you can create in SUZURI.
 type Item struct {
 	ID           int       `json:"id"`
 	Name         string    `json:"name"`
@@ -16,6 +18,7 @@ type Item struct {
 	Variants     []Variant `json:"variants"`
 }
 
+// Variant is a combination of Color and Size.
 type Variant struct {
 	ID        int   `json:"id"`
 	Price     int   `json:"price"`
@@ -25,17 +28,20 @@ type Variant struct {
 	Size      Size  `json:"size"`
 }
 
+// Color is a color of Item.
 type Color struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 	RGB  string `json:"rgb"`
 }
 
+// Size is a size of Item.
 type Size struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
 
+// GetItems gets all item list.
 func (c *Client) GetItems(ctx context.Context) ([]Item, error) {
 	resp, err := c.get(ctx, "/items", nil)
 	if err != nil {
