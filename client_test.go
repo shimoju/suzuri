@@ -100,16 +100,25 @@ func TestGet(t *testing.T) {
 	defer teardown()
 
 	endpoint := "/users/7"
+	query := url.Values{}
+	query.Set("name", "surisurikun")
 	stub.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		expected := "GET"
 		actual := r.Method
 		if actual != expected {
 			t.Errorf("expected %v, got %v", expected, actual)
 		}
+
+		expected = query.Encode()
+		actual = r.URL.RawQuery
+		if actual != expected {
+			t.Errorf("expected %v, got %v", expected, actual)
+		}
+
 		http.ServeFile(w, r, "testdata/users-7.json")
 	})
 
-	res, err := client.get(ctx, endpoint, nil)
+	res, err := client.get(ctx, endpoint, query)
 	if err != nil {
 		t.Fatalf("failed to GET request: %v", err)
 	}
