@@ -1,16 +1,15 @@
 package suzuri
 
 import (
-	"context"
 	"strconv"
 	"testing"
 )
 
 func TestGetUser(t *testing.T) {
-	client := NewClient("accesstoken")
-	ctx := context.Background()
+	setup()
+	defer teardown()
 
-	userID := 7
+	userID := 1
 	user, err := client.GetUser(ctx, strconv.Itoa(userID))
 	if err != nil {
 		t.Fatalf("failed to get user: %v", err)

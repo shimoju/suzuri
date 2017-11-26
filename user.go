@@ -25,7 +25,7 @@ type User struct {
 
 // GetUser gets details about an existing user.
 func (c *Client) GetUser(ctx context.Context, userID string) (*User, error) {
-	user := &User{ID: 7}
+	user := &User{ID: 1}
 
 	return user, nil
 }
