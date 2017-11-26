@@ -1,6 +1,7 @@
 package suzuri
 
 import (
+	"context"
 	"net/http"
 	"testing"
 )
@@ -46,5 +47,12 @@ func TestGetItems(t *testing.T) {
 	actual = len(items[0].Variants)
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
+	}
+
+	cancelCtx, cancel := context.WithCancel(ctx)
+	cancel()
+	items, err = client.GetItems(cancelCtx)
+	if err == nil {
+		t.Errorf("should return error, got %v", err)
 	}
 }
