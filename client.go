@@ -2,6 +2,7 @@ package suzuri
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -44,6 +45,17 @@ func (c *Client) SetBaseURL(urlStr string) error {
 	return nil
 }
 
+func (c *Client) get(ctx context.Context, endpoint string, params url.Values) (*http.Response, error) {
+	req, _ := c.newRequest(ctx, "GET", endpoint, params, nil)
+
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
 func (c *Client) newRequest(ctx context.Context, method, endpoint string, query url.Values, body io.Reader) (*http.Request, error) {
 	reqURL := *c.baseURL
 	reqURL.Path = path.Join(c.baseURL.Path, endpoint)
@@ -63,13 +75,8 @@ func (c *Client) newRequest(ctx context.Context, method, endpoint string, query 
 	return req, nil
 }
 
-func (c *Client) get(ctx context.Context, endpoint string, params url.Values) (*http.Response, error) {
-	req, _ := c.newRequest(ctx, "GET", endpoint, params, nil)
-
-	resp, err := c.httpClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
+func decodeJSON(resp *http.Response, result interface{}) error {
+	defer resp.Body.Close()
+	decoder := json.NewDecoder(resp.Body)
+	return decoder.Decode(result)
 }
