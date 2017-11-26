@@ -1,0 +1,30 @@
+{
+  "user": {
+    "id": 7,
+    "name": "surisurikun",
+    "displayName": "忍者スリスリくん",
+    "avatarUrl": "https://dzdih2euft5nz.cloudfront.net/users/avatars/7.png?1395818488",
+    "identities": [
+      {
+        "id": 101419,
+        "provider": "instagram",
+        "uid": "2094445142",
+        "nickname": "suzurijp",
+        "url": null
+      },
+      {
+        "id": 19635,
+        "provider": "twitter",
+        "uid": "2326290218",
+        "nickname": "suzurijp",
+        "url": "https://twitter.com/suzurijp"
+      }
+    ],
+    "profile": {
+      "id": 10,
+      "url": "https://suzuri.jp/",
+      "body": "こんにちは！SUZURI の公式忍者・スリスリくんです。キミも忍者にならないか？",
+      "headerUrl": "https://dzdih2euft5nz.cloudfront.net/profiles/headers/10.png?1398245916"
+    }
+  }
+}
