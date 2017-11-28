@@ -12,16 +12,16 @@ type UserRoot struct {
 
 // User is a SUZURI user account.
 type User struct {
-	ID          int        `json:"id"`
-	Name        string     `json:"name"`
-	DisplayName string     `json:"displayName"`
-	AvatarURL   string     `json:"avatarUrl"`
-	Identities  []Identity `json:"identities"`
-	Profile     Profile    `json:"profile"`
+	ID          int            `json:"id"`
+	Name        string         `json:"name"`
+	DisplayName string         `json:"displayName"`
+	AvatarURL   string         `json:"avatarUrl"`
+	Identities  []UserIdentity `json:"identities"`
+	Profile     UserProfile    `json:"profile"`
 }
 
-// Identity is information about social account connected with a User.
-type Identity struct {
+// UserIdentity is information about social account connected with a User.
+type UserIdentity struct {
 	ID       int    `json:"id"`
 	Provider string `json:"provider"`
 	UID      string `json:"uid"`
@@ -29,8 +29,8 @@ type Identity struct {
 	URL      string `json:"url"`
 }
 
-// Profile is a profile of User.
-type Profile struct {
+// UserProfile is a profile of User.
+type UserProfile struct {
 	ID        int    `json:"id"`
 	URL       string `json:"url"`
 	Body      string `json:"body"`
