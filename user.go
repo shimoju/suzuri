@@ -5,11 +5,6 @@ import (
 	"strconv"
 )
 
-// UserRoot is the root element that wraps a User.
-type UserRoot struct {
-	User User `json:"user"`
-}
-
 // User is a SUZURI user account.
 type User struct {
 	ID          int            `json:"id"`
@@ -37,6 +32,11 @@ type UserProfile struct {
 	HeaderURL string `json:"headerUrl"`
 }
 
+// userResponse is a response data structure when API returns a User.
+type userResponse struct {
+	User User `json:"user"`
+}
+
 // GetUser gets details about an existing user.
 func (c *Client) GetUser(ctx context.Context, userID int) (*User, error) {
 	endpoint := "/users/" + strconv.Itoa(userID)
@@ -46,10 +46,10 @@ func (c *Client) GetUser(ctx context.Context, userID int) (*User, error) {
 	}
 
 	// TODO: status chack and error handling
-	var user UserRoot
-	if err := decodeJSON(resp, &user); err != nil {
+	var userResp userResponse
+	if err := decodeJSON(resp, &userResp); err != nil {
 		return nil, err
 	}
 
-	return &user.User, nil
+	return &userResp.User, nil
 }
