@@ -11,32 +11,32 @@ type Items struct {
 
 // Item is a product type you can create in SUZURI.
 type Item struct {
-	ID           int       `json:"id"`
-	Name         string    `json:"name"`
-	Angles       []string  `json:"angles"`
-	HumanizeName string    `json:"humanizeName"`
-	Variants     []Variant `json:"variants"`
+	ID           int           `json:"id"`
+	Name         string        `json:"name"`
+	Angles       []string      `json:"angles"`
+	HumanizeName string        `json:"humanizeName"`
+	Variants     []ItemVariant `json:"variants"`
 }
 
-// Variant is a combination of Color and Size.
-type Variant struct {
-	ID        int   `json:"id"`
-	Price     int   `json:"price"`
-	Exemplary bool  `json:"exemplary"`
-	Enabled   bool  `json:"enabled"`
-	Color     Color `json:"color"`
-	Size      Size  `json:"size"`
+// ItemVariant is a combination of Color and Size.
+type ItemVariant struct {
+	ID        int       `json:"id"`
+	Price     int       `json:"price"`
+	Exemplary bool      `json:"exemplary"`
+	Enabled   bool      `json:"enabled"`
+	Color     ItemColor `json:"color"`
+	Size      ItemSize  `json:"size"`
 }
 
-// Color is a color of Item.
-type Color struct {
+// ItemColor is a color of Item.
+type ItemColor struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 	RGB  string `json:"rgb"`
 }
 
-// Size is a size of Item.
-type Size struct {
+// ItemSize is a size of Item.
+type ItemSize struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
 }
