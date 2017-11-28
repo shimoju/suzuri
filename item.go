@@ -4,11 +4,6 @@ import (
 	"context"
 )
 
-// Items is a collection of Item.
-type Items struct {
-	Items []Item `json:"items"`
-}
-
 // Item is a product type you can create in SUZURI.
 type Item struct {
 	ID           int           `json:"id"`
@@ -41,18 +36,23 @@ type ItemSize struct {
 	Name string `json:"name"`
 }
 
+// ItemsResponse is a response data structure when API returns collection of Item.
+type ItemsResponse struct {
+	Items []Item `json:"items"`
+}
+
 // ListItems lists all items.
-func (c *Client) ListItems(ctx context.Context) ([]Item, error) {
+func (c *Client) ListItems(ctx context.Context) (*ItemsResponse, error) {
 	resp, err := c.get(ctx, "/items", nil)
 	if err != nil {
 		return nil, err
 	}
 
 	// TODO: status chack and error handling
-	var items Items
-	if err := decodeJSON(resp, &items); err != nil {
+	var itemsResp ItemsResponse
+	if err := decodeJSON(resp, &itemsResp); err != nil {
 		return nil, err
 	}
 
-	return items.Items, nil
+	return &itemsResp, nil
 }
