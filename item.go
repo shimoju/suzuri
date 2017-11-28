@@ -41,8 +41,8 @@ type ItemSize struct {
 	Name string `json:"name"`
 }
 
-// GetItems gets all item list.
-func (c *Client) GetItems(ctx context.Context) ([]Item, error) {
+// ListItems lists all items.
+func (c *Client) ListItems(ctx context.Context) ([]Item, error) {
 	resp, err := c.get(ctx, "/items", nil)
 	if err != nil {
 		return nil, err

@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestGetItems(t *testing.T) {
+func TestListItems(t *testing.T) {
 	setup()
 	defer teardown()
 
@@ -20,7 +20,7 @@ func TestGetItems(t *testing.T) {
 		http.ServeFile(w, r, "testdata/items.json")
 	})
 
-	items, err := client.GetItems(ctx)
+	items, err := client.ListItems(ctx)
 	if err != nil {
 		t.Fatalf("failed to get items: %v", err)
 	}
@@ -51,7 +51,7 @@ func TestGetItems(t *testing.T) {
 
 	cancelCtx, cancel := context.WithCancel(ctx)
 	cancel()
-	items, err = client.GetItems(cancelCtx)
+	items, err = client.ListItems(cancelCtx)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
