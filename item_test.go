@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestGetItems(t *testing.T) {
+func TestListItems(t *testing.T) {
 	setup()
 	defer teardown()
 
@@ -20,38 +20,38 @@ func TestGetItems(t *testing.T) {
 		http.ServeFile(w, r, "testdata/items.json")
 	})
 
-	items, err := client.GetItems(ctx)
+	list, err := client.ListItems(ctx)
 	if err != nil {
 		t.Fatalf("failed to get items: %v", err)
 	}
 
 	expected := 4
-	actual := len(items)
+	actual := len(list.Items)
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
 	expected = 6
-	actual = len(items[2].Angles)
+	actual = len(list.Items[2].Angles)
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
 	expected = 0
-	actual = len(items[3].Angles)
+	actual = len(list.Items[3].Angles)
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
 	expected = 4
-	actual = len(items[0].Variants)
+	actual = len(list.Items[0].Variants)
 	if actual != expected {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
 	cancelCtx, cancel := context.WithCancel(ctx)
 	cancel()
-	items, err = client.GetItems(cancelCtx)
+	list, err = client.ListItems(cancelCtx)
 	if err == nil {
 		t.Errorf("should return error, got %v", err)
 	}
