@@ -113,22 +113,28 @@ func TestNewRequest(t *testing.T) {
 		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
-	expected = "application/json"
-	actual = req.Header.Get("Content-Type")
-	if actual != expected {
-		t.Errorf("expected %v, got %v", expected, actual)
-	}
-
 	expected = "SuzuriGo/" + version
 	actual = req.Header.Get("User-Agent")
 	if !strings.HasPrefix(actual, expected) {
 		t.Errorf("User-Agent should start with %v, got %v", expected, actual)
 	}
 
+	expected = ""
+	actual = req.Header.Get("Content-Type")
+	if actual != expected {
+		t.Errorf("expected %v, got %v", expected, actual)
+	}
+
 	body := strings.NewReader(`{"text": "TEST"}`)
 	req, err = client.newRequest(ctx, "POST", "/materials/text", nil, body)
 	if err != nil {
 		t.Fatalf("failed to make a new request: %v", err)
+	}
+
+	expected = "application/json"
+	actual = req.Header.Get("Content-Type")
+	if actual != expected {
+		t.Errorf("expected %v, got %v", expected, actual)
 	}
 
 	req, err = client.newRequest(ctx, "INVALID METHOD", endpoint, nil, nil)

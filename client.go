@@ -65,12 +65,14 @@ func (c *Client) newRequest(ctx context.Context, method, endpoint string, query 
 	if err != nil {
 		return nil, err
 	}
-
 	req = req.WithContext(ctx)
 
 	req.Header.Set("Authorization", "Bearer "+c.token)
-	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", userAgent)
+
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
 
 	return req, nil
 }
