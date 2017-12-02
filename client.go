@@ -2,7 +2,6 @@ package suzuri
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -75,10 +74,4 @@ func (c *Client) newRequest(ctx context.Context, method, endpoint string, query 
 	}
 
 	return req, nil
-}
-
-func decodeJSON(resp *http.Response, result interface{}) error {
-	defer resp.Body.Close()
-	decoder := json.NewDecoder(resp.Body)
-	return decoder.Decode(result)
 }
